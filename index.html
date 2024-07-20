@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save elements position</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #eee;
+            text-align: left;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #eee;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <table>
+        
+        <tr id="1">
+            <td>1</td>
+            <td>Element 1</td>
+            <td>
+                <button class="up">↑</button>
+                <button class="down">↓</button>
+            </td>
+        </tr>
+        <tr id="2">
+            <td>2</td>
+            <td>Element 2</td>
+            <td>
+                <button class="up">↑</button>
+                <button class="down">↓</button>
+            </td>
+        </tr>
+        <tr id="3">
+            <td>3</td>
+            <td>Element 3</td>
+            <td>
+                <button class="up">↑</button>
+                <button class="down">↓</button>
+            </td>
+        </tr>
+        <tr id="4">
+            <td>4</td>
+            <td>Element 4</td>
+            <td>
+                <button class="up">↑</button>
+                <button class="down">↓</button>
+            </td>
+        </tr>
+        <tr id="5">
+            <td>5</td>
+            <td>Element 5</td>
+            <td>
+                <button class="up">↑</button>
+                <button class="down">↓</button>
+            </td>
+        </tr>
+    </table>
+    
+    <script>
+        $(document).ready(function() {
+            $('.up').click(function() {
+                var current = $(this).closest('tr');
+                var previous = current.prev();
+                if (previous.length !== 0) {
+                    current.insertBefore(previous);
+                }
+                getPositions();
+            });
+
+            $('.down').click(function() {
+                var current = $(this).closest('tr');
+                var next = current.next();
+                if (next.length !== 0) {
+                    current.insertAfter(next);
+                }
+                getPositions();
+            });
+        
+            function getPositions() {
+                let elements = $('table tr');
+                var elementsPositions = [];
+                elements.each(function(index) {
+                    let position = index + 1;
+                    $(this).find('td:first').text(position);
+                    let id = $(this).attr('id');
+                    elementsPositions.push({ id: id, position: position });
+                });
+                console.log(elementsPositions);
+            }
+        });
+    </script>
+</body>
+</html>
